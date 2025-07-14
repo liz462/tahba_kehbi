@@ -24,6 +24,12 @@
       font-size: 24px;
       margin-bottom: 10px;
     }
+    .spin-block {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin: 10px;
+    }
     .frame {
       display: inline-block;
       padding: 6px 14px;
@@ -50,12 +56,17 @@
     }
     .spin-btn {
       font-size: 16px;
-      padding: 5px 10px;
+      padding: 4px 10px;
       margin-right: 6px;
-      border-radius: 50%;
+      border-radius: 6px;
       background-color: #ffcc66;
       border: 2px solid #dcae00;
       cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+    .spin-btn:hover {
+      background-color: #ffe28a;
+      transform: scale(1.1);
     }
     .result {
       font-size: 20px;
@@ -88,11 +99,17 @@
         font-size: 26px;
       }
 
-      .btn, .spin-btn {
+      .btn {
         font-size: 18px;
         width: 90%;
         margin: 8px auto;
         display: block;
+      }
+
+      .spin-block {
+        display: flex;
+        justify-content: center;
+        margin: 5px;
       }
 
       .frame {
@@ -105,12 +122,6 @@
         font-size: 18px;
       }
 
-      .headline {
-        font-size: 20px;
-        flex-direction: column;
-        gap: 10px;
-      }
-
       .reaction {
         font-size: 30px;
       }
@@ -120,7 +131,16 @@
 <body>
   <h1>美食評論家大挑戰</h1>
   <div class="headline">
-    我感覺 <button class="spin-btn" onclick="startSpin('A')">揤</button><span class="frame" id="displayA">？？？</span> 摻 <button class="spin-btn" onclick="startSpin('B')">揤</button><span class="frame" id="displayB">？？？</span>
+    我感覺
+    <span class="spin-block">
+      <button class="spin-btn" onclick="startSpin('A')">揤</button>
+      <span class="frame" id="displayA">？？？</span>
+    </span>
+    摻
+    <span class="spin-block">
+      <button class="spin-btn" onclick="startSpin('B')">揤</button>
+      <span class="frame" id="displayB">？？？</span>
+    </span>
   </div>
 
   <div>
