@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <title>美食評論家大挑戰</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #fffbe6;
+      margin: 20px;
+      text-align: center;
+      color: #333;
+    }
+    .headline {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+    .frame {
+      display: inline-block;
+      padding: 6px 14px;
+      border: 3px solid #ffcc66;
+      border-radius: 12px;
+      background-color: #fff;
+      font-weight: bold;
+      min-width: 80px;
+      margin: 0 5px;
+    }
+    .btn {
+      font-size: 20px;
+      margin: 10px;
+      padding: 10px 20px;
+      cursor: pointer;
+      border: none;
+      border-radius: 8px;
+    }
+    .btn.tahba {
+      background-color: #ffad33;
+    }
+    .btn.kahbi {
+      background-color: #66ccff;
+    }
+    .spin-btn {
+      font-size: 16px;
+      padding: 5px 10px;
+      margin-right: 6px;
+      border-radius: 50%;
+      background-color: #ffcc66;
+      border: 2px solid #dcae00;
+      cursor: pointer;
+    }
+    .result {
+      font-size: 20px;
+      margin-top: 20px;
+    }
+    .reaction {
+      font-size: 36px;
+      margin-top: 10px;
+    }
+    .response-box {
+      margin-top: 20px;
+      font-size: 20px;
+      font-weight: bold;
+      display: none;
+    }
+    .underline {
+      display: inline-block;
+      border-bottom: 1px solid #999;
+      min-width: 60px;
+      margin: 0 2px;
+    }
+  </style>
+</head>
+
+  <h1 style="font-size: 32px; color: #d35400; margin-bottom: 20px;">美食評論家大挑戰</h1>
+  <div class="headline">
+    我感覺 <button class="spin-btn" onclick="startSpin('A')">揤</button><span class="frame" id="displayA">？？？</span> 摻 <button class="spin-btn" onclick="startSpin('B')">揤</button><span class="frame" id="displayB">？？？</span>
+  </div>
+
+  <div>
+    <button class="btn kahbi" onclick="showReaction('扴味')">扴味！</button>
+    <button class="btn tahba" onclick="showReaction('tah-bā')">tah-bā！</button>
+  </div>
+
+  <div class="result" id="result"></div>
+  <div class="reaction" id="reaction"></div>
+
+  <div class="response-box" id="responseBox">
+    🗣️ 因為 <span id="insertA"></span><span class="underline"></span>，
+    <span id="insertB"></span><span class="underline"></span>，
+    兩个鬥起來<span class="underline"></span>。
+  </div>
+
+  <script>
+    const AList = ["皮蛋", "豬血粿", "碗粿", "肉粽", "番薯", "豆腐", "雞排", "米粉"];
+    const BList = ["芫荽", "塗豆粉", "tshì-sìr", "薟甜醬", "豆油", "胡椒粉", "肉酥"];
+
+    let currentA = "？？？";
+    let currentB = "？？？";
+    let spinning = false;
+
+    function startSpin(target) {
+      if (spinning) return;
+      spinning = true;
+      let list = (target === 'A') ? AList : BList;
+      let display = document.getElementById((target === 'A') ? 'displayA' : 'displayB');
+
+      let i = 0;
+      let spinInterval = setInterval(() => {
+        display.innerText = list[i % list.length];
+        i++;
+      }, 80);
+
+      setTimeout(() => {
+        clearInterval(spinInterval);
+        const result = list[Math.floor(Math.random() * list.length)];
+        display.innerText = result;
+        if (target === 'A') currentA = result;
+        else currentB = result;
+        spinning = false;
+      }, 1000);
+    }
+
+    function showReaction(type) {
+      document.getElementById("result").innerText = `我感覺「${currentA}」摻「${currentB}」${type}！`;
+      document.getElementById("insertA").innerText = currentA;
+      document.getElementById("insertB").innerText = currentB;
+      document.getElementById("responseBox").style.display = 'block';
+
+      if (type === "扴味") {
+        document.getElementById("reaction").innerText = "🤢😖🥶";
+      } else {
+        document.getElementById("reaction").innerText = "😋🔥👍";
+      }
+    }
+  </script>
+</body>
+</html>
